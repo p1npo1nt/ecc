@@ -6,11 +6,10 @@
 
 bool isPrime(int n)
 {
-    // Corner case
+
     if (n <= 1)
         return false;
 
-    // Check from 2 to n-1
     for (int i = 2; i <= n / 2; i++)
         if (n % i == 0)
             return false;
@@ -23,11 +22,11 @@ int modExp(int base, int exp, int mod) {
     base = base % mod;
     
     while (exp > 0) {
-        if (exp % 2 == 1) {  // If exp is odd, multiply base with result
+        if (exp % 2 == 1) {  
             result = (result * base) % mod;
         }
-        exp = exp >> 1;      // exp = exp / 2
-        base = (base * base) % mod;  // Change base to base^2
+        exp = exp >> 1;    
+        base = (base * base) % mod;  
     }
     return result;
 }
@@ -36,8 +35,10 @@ int modExp(int base, int exp, int mod) {
 
 // Tonelli-Shanks Algorithm for square root mod p
 bool TS(long long n, long long p, long long& x1, long long& x2) {
+    
+    // No solution 
     if (modExp(n, (p - 1) / 2, p) != 1) {
-        return false; // No solution exists
+        return false; 
     }
     
     if (p % 4 == 3) {
@@ -104,7 +105,7 @@ std::vector<std::tuple<int, int>> Points(std::vector<int> Fp, int p, int A, int 
     std::vector<std::tuple<int, int>> pts;
 
     for(int k : Fp){
-        long long G = k^3 + A*k + B;
+        long long G = pow(k,3) + A*k + B;
         
         long long x1, x2;
         if (TS(G, p, x1, x2)) {
@@ -112,10 +113,10 @@ std::vector<std::tuple<int, int>> Points(std::vector<int> Fp, int p, int A, int 
             pts.push_back(std::make_tuple(k, x2));
         } 
 
-    return pts;
+    
     }
 
-
+    return pts; 
 }
 
 
